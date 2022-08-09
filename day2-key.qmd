@@ -7,7 +7,12 @@ execute:
   message: false
 ---
 
-## Vectors 
+```{r}
+library(tidyverse)
+```
+
+
+## Vectors
 
 ```{r}
 
@@ -81,3 +86,176 @@ dog_food["khora"]
 #can call things by name, but since this is just 1d it is just calling things by name and not a column or anything
 
 ```
+
+Using a specific name to find a value via position
+
+```{r}
+
+cars <- c("blue", "orange", "white")
+
+cars[1]
+
+i <- seq(1:2)
+# can set something as i and then we can use this to look at cars at i
+cars[i]
+
+# adding a new value in a vector - this is called mutability
+# tupulls in Pyton are not mutable
+
+cars[3] <- "yellow"
+```
+
+## Matrices
+
+```{r}
+
+# doing a matrix all in one step all together, byrow = FALSE means to populate them by column
+
+# could also add a vector first and then create a matrix from the exisiting vector object
+
+fish_size <- matrix(c(12, 14, 18, 20), ncol = 2, nrow = 2, byrow= FALSE)
+
+class(fish_size)
+typeof(fish_size)
+
+# Example of indexing
+fish_size[1,1]
+fish_size[2,1]
+fish_size[,2] #seeing everything in row 2
+fish_size[i]
+
+# What happens if we create a matrix with different types of data?
+
+fish_type <- matrix(c(12, "trout", 18, 13L), ncol = 2, nrow = 2, byrow= FALSE)
+
+class(fish_type)
+typeof(fish_type)
+fish_type
+
+fish_size[2,] #you can see what is in the second row but just the columns (it goes row, column)
+
+fish_size[,1]
+
+fish_size_row1 <- fish_size [,1]
+
+```
+
+## Lists
+
+reminder that a list combines vectors that can be diffferent length and type
+
+```{r}
+
+# list has four list elements (character of length 1, numeric of length 3 and string of length 2 and integer of length 1)
+urchins <- list("blue", c(1, 2, 3), c("a cat", "a dog"), 5L)
+
+# double square brackets tell you the element of the list which means you can also access different components of the list
+
+# use the double brackets as indicated - calling by element number will such as urchins[3] but it will retrun it as a ist
+
+# can retrun the vector not in the list you can use double square brackets
+
+ex_1 <- urchins[3]
+#this first option still returns a list that happens to just have one element
+
+ex_2 <- urchins[[3]]
+# often want to pull this out so that you can use the information as a vector
+
+```
+
+## Making a named list
+
+This is useful in making model outputs
+
+```{r}
+
+tacos <- list(topping = c("onion", "cilantro", "guacamole"),
+              filling = c("beans", "meat", "veggies"),
+              price = c(6.75, 8.25, 9.50))
+
+#we are now naming the vectors
+# NOTE: always use equals signs inside a function and then use the assignment operator when storing an object
+
+tacos
+
+# can also access things by names not just position which is helpful for reproduciblity
+
+
+```
+
+## Indexing List Elements by Name
+
+```{r}
+
+# Using $ to find the name of each of the different name topics
+
+tacos$filling
+tacos$price
+tacos$topping
+
+# pulling any piece from the vector, tell what vector you want and then the position
+
+tacos$filling[2]
+
+# t-test names is all of the different elements in test and outputs in the list, which is helpful for reproducibility and could also 
+
+
+```
+
+If you write The price of a veggie burrito with guacamole is 9.50, this not reproducible. Instead you can do that as values that have flexibility to change
+
+You can add information in text in a way that is reproducible. The text will then get updated and this is a really awesome tool to do to repro
+
+The price of a burrito is `r tacos$price[1]`.
+
+## Data Frames
+data frames are vectors that all have the same length
+since tacos all have the length of three you can put this together in a data frame
+
+```{r}
+
+# CREATING VECTORS THEN DATA FRAME: creating three separate vectors and combine in data frame
+topping <- c("onion", "cilantro", "guacamole")
+filling <- c("beans", "meat", "veggies")
+price <- c(6.75, 8.25, 9.50)
+
+df_ex_1 <- data.frame(topping, filling, price)
+# with all three vectors you can give the vectors in the data frame function
+
+class(df_ex_1)
+
+# ALL INFO IN THE FUCTION: another way is you can put all of the items in the function, if it gets crazy then don't do it like this
+df_ex_2 <- data.frame(topping = c("sour cream", "salsa", "cheese"),
+                      filling = c("chicken", "cheese", "cabbage"),
+                      price = c(12.50, 13.75, 15.00))
+
+#uUSING A TIDY VERSE WAY WITH TRIBBLE, helpful to write it out in the way of how the data frame will look
+
+df_ex_3 <- tribble(
+  ~topping, ~filling, ~ price,
+  "avocado", "steak", 13.25,
+  "radish", "fish", 10.40,
+  "salsa", "veggies", 9.75
+)
+
+class(df_ex_3)
+# in asking for the class it will say data.frame as well as a tible because it returns more info when calling back the data.frame with the tibble funciton
+
+# ------
+# data frames will automaticall bind things in columns rather than by row can use rbind(topping, filling, price)
+
+```
+
+
+## Doing some indexing from the data frames
+
+```{r}
+
+df_ex_3$price
+# running this would bring up just the price, if you want to do just the thrird element of the price column it would look like:
+df_ex_3$price[3]
+
+# indexing things from list and data.frames is the same since the data.frame is just a series of lists aligned in a column
+
+```
+
