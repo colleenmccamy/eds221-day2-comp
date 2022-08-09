@@ -7,4 +7,77 @@ execute:
   message: false
 ---
 
-## 
+## Vectors 
+
+```{r}
+
+# creating a vector
+dogs <- c("teddy", "kora", "waffle", "banjo", "tallie")
+
+# checking the class (leacing in the code chunk for a reference otherwise just do it in the console)
+
+class(dogs)
+```
+
+Vectors with different data types
+
+```{r}
+
+cats <- c("creamsicle wolf", 14.2, 3L)
+
+class(cats)
+
+# outcome value is class character because a vector can only have a single class everything will be coersed to what ever data structure is most flexible (ie. character for this instance)
+
+# once data is created R will not make an assumption about changing thing specifically based on what it is - example below with cat_age being a character
+
+cat_age <- cats[3]
+
+cat_age
+```
+
+Vector of numeric but not integer
+
+```{r}
+
+years <- c(20, 40, 16, 2)
+#stored as numeric because they don't have an L - would need to store it as 20L, 40L, etc. or change the class to integer down the line
+
+class(years)
+typeof(years)
+#type of digs deeper into the data type
+
+```
+
+Asking questions about the data type
+
+```{r}
+
+# doing a conditional check
+# is. asks questions (is this This??) while as. gives a command (make this This)
+
+# can write a command to only keep items that are numeric for an example
+
+is.numeric(years)
+# tool with a condition to keep or remove things if true (is years numeric)
+
+is.character(years)
+```
+
+```{r}
+
+dog_food <- c(teddy = "purina", khora = "alpo", waffle = "fancy feast")
+
+#teddy not in quotations as it is assigning a name to something, giving a name to each element
+
+# somewhat like adding a column name
+
+dog_food
+
+dog_food[2]
+#can call things by position
+
+dog_food["khora"]
+#can call things by name, but since this is just 1d it is just calling things by name and not a column or anything
+
+```
